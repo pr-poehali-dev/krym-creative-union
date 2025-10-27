@@ -92,8 +92,7 @@ const Index = () => {
       </section>
 
       <section 
-        className="py-32 relative"
-        style={{ transform: `translateY(${scrollY * 0.2}px)` }}
+        className="py-40 relative"
       >
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto animate-slide-up">
@@ -136,20 +135,22 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-24 relative overflow-hidden">
+      <div className="h-32 bg-gradient-to-b from-background via-background/50 to-transparent relative z-20" />
+      
+      <section className="py-32 relative overflow-hidden">
         <div 
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-40 transition-all duration-700 ease-out"
           style={{
             backgroundImage: 'url(https://cdn.poehali.dev/files/70253429-6a89-4af7-a983-d3d9719e3a02.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'blur(60px)',
-            transform: `scale(1.2) translateY(${scrollY * 0.15}px)`
+            transform: `scale(1.2) translateY(${scrollY * 0.1}px)`
           }}
         />
-        <div className="absolute top-10 left-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-accent/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-secondary/20 rounded-full blur-3xl" />
+        <div className="absolute top-10 left-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s' }} />
+        <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-secondary/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }} />
         <div className="container mx-auto px-4 relative z-10">
           <h2 className="text-5xl font-bold mb-16 text-center bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent">
             Категории услуг
