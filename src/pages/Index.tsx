@@ -51,13 +51,13 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden paint-splash">
         <div 
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 top-0 bottom-0 opacity-30"
           style={{
             backgroundImage: 'url(https://cdn.poehali.dev/files/a25d90b5-34b1-49de-bb13-d3f34fe611ce.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'blur(8px)',
-            transform: `translateY(${scrollY * 0.5}px)`
+            transform: `translateY(${Math.max(0, scrollY * 0.5)}px)`
           }}
         />
         
