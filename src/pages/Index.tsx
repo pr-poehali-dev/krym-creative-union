@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import { Link } from 'react-router-dom';
+import Header from '@/components/Header';
 
 const categories = [
   {
@@ -49,6 +51,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden paint-splash">
         <div 
           className="absolute inset-0 opacity-30"
@@ -183,13 +186,15 @@ const Index = () => {
                   ))}
                 </div>
 
-                <Button 
-                  className={`w-full mt-6 bg-gradient-to-r ${category.color} hover:opacity-90 transition-opacity`}
-                  size="lg"
-                >
-                  Смотреть артистов
-                  <Icon name="ArrowRight" size={20} className="ml-2" />
-                </Button>
+                <Link to={`/${category.id}`}>
+                  <Button 
+                    className={`w-full mt-6 bg-gradient-to-r ${category.color} hover:opacity-90 transition-opacity`}
+                    size="lg"
+                  >
+                    Смотреть артистов
+                    <Icon name="ArrowRight" size={20} className="ml-2" />
+                  </Button>
+                </Link>
               </Card>
             ))}
           </div>
