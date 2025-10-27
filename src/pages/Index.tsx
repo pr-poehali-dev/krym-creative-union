@@ -135,9 +135,7 @@ const Index = () => {
         </div>
       </section>
 
-      <div className="h-32 bg-gradient-to-b from-background via-background/50 to-transparent relative z-20" />
-      
-      <section className="py-32 relative overflow-hidden">
+      <section className="py-32 relative overflow-hidden" style={{ marginTop: '-276px' }}>
         <div 
           className="absolute inset-0 opacity-40 transition-all duration-700 ease-out"
           style={{
