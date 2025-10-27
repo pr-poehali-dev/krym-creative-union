@@ -2,12 +2,32 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 import { useCart } from '@/contexts/CartContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Header = () => {
-  const { items, removeItem, duplicateItem, getTotalPrice, getItemCount } = useCart();
+  const { items, removeItem, duplicateItem, getTotalPrice, getItemCount, applyPromocode, promoCode, discount } = useCart();
+  const navigate = useNavigate();
+  const [promoInput, setPromoInput] = useState('');
+  const [promoError, setPromoError] = useState('');
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const handleApplyPromo = () => {
+    const success = applyPromocode(promoInput);
+    if (!success) {
+      setPromoError('Такого промокода не существует');
+    } else {
+      setPromoError('');
+    }
+  };
+
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    navigate('/checkout');
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b">
@@ -35,7 +55,7 @@ const Header = () => {
         </nav>
 
         {getItemCount() > 0 && (
-          <Sheet>
+          <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" className="relative">
                 <Icon name="ShoppingCart" size={20} />
@@ -89,11 +109,43 @@ const Header = () => {
                     ))}
                     
                     <div className="border-t pt-4 mt-6">
-                      <div className="flex items-center justify-between text-lg font-bold">
-                        <span>Итого:</span>
-                        <span>{getTotalPrice()}₽</span>
+                      <div className="space-y-3 mb-4">
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="Введите промокод"
+                            value={promoInput}
+                            onChange={(e) => {
+                              setPromoInput(e.target.value);
+                              setPromoError('');
+                            }}
+                            className="flex-1"
+                          />
+                          <Button onClick={handleApplyPromo} variant="outline">
+                            Применить
+                          </Button>
+                        </div>
+                        {promoError && (
+                          <p className="text-sm text-destructive">{promoError}</p>
+                        )}
+                        {promoCode && (
+                          <p className="text-sm text-green-600">Промокод "{promoCode}" применён (-{discount}%)</p>
+                        )}
                       </div>
-                      <Button className="w-full mt-4" size="lg">
+
+                      <div className="space-y-2">
+                        {discount > 0 && (
+                          <div className="flex items-center justify-between text-sm text-muted-foreground">
+                            <span>Скидка {discount}%:</span>
+                            <span>-{Math.round(getTotalPrice() * discount / 100)}₽</span>
+                          </div>
+                        )}
+                        <div className="flex items-center justify-between text-lg font-bold">
+                          <span>Итого:</span>
+                          <span>{Math.round(getTotalPrice() * (1 - discount / 100))}₽</span>
+                        </div>
+                      </div>
+                      
+                      <Button className="w-full mt-4" size="lg" onClick={handleCheckout}>
                         Оформить заказ
                       </Button>
                     </div>

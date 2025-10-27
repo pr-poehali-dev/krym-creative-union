@@ -16,12 +16,22 @@ interface CartContextType {
   duplicateItem: (id: string) => void;
   getTotalPrice: () => number;
   getItemCount: () => number;
+  applyPromocode: (code: string) => boolean;
+  promoCode: string;
+  discount: number;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+const PROMOCODES: Record<string, number> = {
+  'старт платформы': 5,
+};
+
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [promoCode, setPromoCode] = useState('');
+  const [discount, setDiscount] = useState(0);
 
   const addItem = (item: Omit<CartItem, 'quantity'>) => {
     setItems((prevItems) => {
@@ -62,6 +72,22 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return items.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const applyPromocode = (code: string): boolean => {
+    const normalizedCode = code.toLowerCase().trim();
+    if (PROMOCODES[normalizedCode]) {
+      setPromoCode(code);
+      setDiscount(PROMOCODES[normalizedCode]);
+      return true;
+    }
+    return false;
+  };
+
+  const clearCart = () => {
+    setItems([]);
+    setPromoCode('');
+    setDiscount(0);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -71,6 +97,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         duplicateItem,
         getTotalPrice,
         getItemCount,
+        applyPromocode,
+        promoCode,
+        discount,
+        clearCart,
       }}
     >
       {children}

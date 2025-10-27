@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "Create order successfully",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "eventDate": "2025-12-31",
+        "eventLocation": "Yalta Palace",
+        "eventTime": "18:00",
+        "contactType": "telegram",
+        "contact": "@testuser",
+        "promoCode": "старт платформы",
+        "discount": 5,
+        "totalPrice": 9500,
+        "items": [
+          {
+            "name": "Вальс",
+            "price": 5000,
+            "quantity": 2,
+            "category": "Танцы"
+          }
+        ]
+      },
+      "expectedStatus": 200
+    }
+  ]
+}
