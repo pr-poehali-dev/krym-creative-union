@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
+import Header from '@/components/Header';
 
 const Media = () => {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ const Media = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50">
+      <Header />
       <div className="container mx-auto px-4 py-8">
         <Button 
           variant="ghost" 

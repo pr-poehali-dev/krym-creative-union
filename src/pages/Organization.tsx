@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
+import Header from '@/components/Header';
 
 const Organization = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Organization = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+      <Header />
       <div className="container mx-auto px-4 py-8">
         <Button 
           variant="ghost" 

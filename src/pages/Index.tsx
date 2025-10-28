@@ -74,17 +74,21 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
             {categories.map((category, index) => (
-              <Card 
+              <Link 
                 key={category.id}
-                className="p-6 bg-card/80 backdrop-blur-sm border-2 hover:scale-105 transition-all duration-300 cursor-pointer animate-scale-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                to={`/${category.id}`}
               >
-                <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center mx-auto mb-4`}>
-                  <Icon name={category.icon} className="text-white" size={32} />
-                </div>
-                <h3 className="text-2xl font-bold mb-2">{category.title}</h3>
-                <p className="text-muted-foreground text-sm">{category.description}</p>
-              </Card>
+                <Card 
+                  className="p-6 bg-card/80 backdrop-blur-sm border-2 hover:scale-105 transition-all duration-300 cursor-pointer animate-scale-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center mx-auto mb-4`}>
+                    <Icon name={category.icon} className="text-white" size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">{category.title}</h3>
+                  <p className="text-muted-foreground text-sm">{category.description}</p>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
