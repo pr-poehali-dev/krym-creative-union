@@ -1,0 +1,27 @@
+{
+  "tests": [
+    {
+      "name": "Test OPTIONS request",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Test invalid login",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "username": "wronguser",
+        "password": "wrongpass"
+      },
+      "expectedStatus": 401
+    },
+    {
+      "name": "Test missing credentials",
+      "method": "POST",
+      "path": "/",
+      "body": {},
+      "expectedStatus": 400
+    }
+  ]
+}
